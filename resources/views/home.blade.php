@@ -1,16 +1,13 @@
-@extends('layouts.app')
+@include('layouts.navigation')
 
-@section('titulo', 'Página de Notícias')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Página de Notícias') }}
+        </h2>
+    </x-slot>
 
-@section('content')
+    <div class="py-12"></div>
 
-<h1>Aqui é uma Home</h1>
-<div class="card">
-  <h5 class="card-header">Featured</h5>
-  <div class="card-body">
-    <h5 class="card-title">Special title treatment</h5>
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div>
-@endsection
+
+</x-app-layout>

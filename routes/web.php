@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NoticiaController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,21 +16,26 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('ola');
 });
+//Route::get("/", [NoticiaController::class,"home"])->name("home");
+Route::resource('noticias', NoticiaController::class);
 
-Route::get('/home', function() {
-    return view('home');
-});
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    [NoticiaController::class,"index"];
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::controller(NoticiaController::class)->group(function () {
+    // Route::get('/noticias/{id}', 'show')->name('noticias.show');
+    Route::put('/noticias', 'update')->name('noticias.update');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
 
 require __DIR__.'/auth.php';

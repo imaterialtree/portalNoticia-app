@@ -1,3 +1,4 @@
+{{--
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -20,6 +21,7 @@
         @include('partials.menu')
         <main>
             @yield('content')
+            {{ $slot }}
         </main>
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
             @include('layouts.navigation')
@@ -41,3 +43,4 @@
         @include('partials.footer')
     </body>
 </html>
+--}}
