@@ -4,9 +4,6 @@
             {{ $noticia->titulo}}
         </h2>
     </x-slot>
-    <div>
-        {{$noticia->titulo}}
-    </div>
 
     <div>
         {{$noticia->descricao}}

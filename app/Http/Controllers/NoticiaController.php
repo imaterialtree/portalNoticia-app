@@ -7,9 +7,11 @@ use App\Models\Noticia;
 
 class NoticiaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $noticias = Noticia::all();
+        // $noticias = Noticia::all();
+        $filters = $request->only(['title', 'description']);
+        $noticias = Noticia::filter( $filters )->paginante(10)->withQueryString();
         return view('dashboard', compact('noticias'));
     }
     public function home()
@@ -40,7 +42,7 @@ class NoticiaController extends Controller
 
         $noticia->storeArquivo($request->file('arquivo'));
 
-        return redirect()->route('dashboard')->with('sucess', 'Notícia criada com sucesso');
+        return redirect()->route('dashboard')->with('success', 'Notícia criada com successo');
     }
 
     public function show(Noticia $noticia)
@@ -70,7 +72,7 @@ class NoticiaController extends Controller
 
         $noticia->save();
 
-        return redirect()->route('dashboard')->with('sucess', 'Notícia atualizada com sucesso');
+        return redirect()->route('dashboard')->with('success', 'Notícia atualizada com successo');
     }
 
     
@@ -78,6 +80,6 @@ class NoticiaController extends Controller
     {
         $noticia->delete();
 
-        return redirect()->route('dashboard')->with('sucess', 'Notícia deletada com sucesso');
+        return redirect()->route('dashboard')->with('success', 'Notícia deletada com successo');
     }
 }
