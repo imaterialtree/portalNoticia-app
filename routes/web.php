@@ -15,27 +15,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('ola');
-});
-//Route::get("/", [NoticiaController::class,"home"])->name("home");
+Route::get('/', [NoticiaController::class, 'home'])->name('home');
 Route::resource('noticias', NoticiaController::class);
 
-
-Route::get('/dashboard', function () {
-    [NoticiaController::class,"index"];
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::controller(NoticiaController::class)->group(function () {
-    // Route::get('/noticias/{id}', 'show')->name('noticias.show');
-    Route::put('/noticias', 'update')->name('noticias.update');
-});
+Route::get('/dashboard', [NoticiaController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+//Route::get('/noticias/{noticia}', [NoticiaController::class, 'show'])->name('noticias.show');
+Route::put('/noticias/{noticia}', [NoticiaController::class, 'update'])->name('noticias.update');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
 
 require __DIR__.'/auth.php';

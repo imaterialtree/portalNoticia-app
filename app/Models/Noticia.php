@@ -15,11 +15,12 @@ class Noticia extends Model
         'url',
     ];
 
-    public function storeFile($file) {
-        if ($file) {
-            $path = $file->store('files', 'public');
+    public function storeArquivo($arquivo){
+        if ($arquivo){
+            $path = $arquivo->store('arquivos', 'public');
             $this->url = Storage::url($path);
             $this->save();
         }
     }
+
 }
