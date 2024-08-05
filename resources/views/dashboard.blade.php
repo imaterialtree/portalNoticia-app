@@ -6,20 +6,20 @@
         </h2>
     </x-slot>
 
-
+    {{-- Filtros --}}
     <div class="container mt-5">
         <form method="GET" action="{{ route('noticias.index') }}" class="form-inline">
             <div class="form-group mb-2">
-                <label for="title" class="sr-only">Título</label>
-                <input type="text" name="title" id="title"
+                <label for="titulo" class="sr-only">Título</label>
+                <input type="text" name="titulo" id="titulo"
                     class="form-control form-control-sm form-control-custom mr-2" placeholder="Título"
-                    value="{{ request('title') }}">
+                    value="{{ request('titulo') }}">
             </div>
             <div class="form-group mb-2">
-                <label for="description" class="sr-only">Descrição</label>
-                <input type="text" name="description" id="description"
+                <label for="descricao" class="sr-only">Descrição</label>
+                <input type="text" name="descricao" id="description"
                     class="form-control form-control-sm form-control-custom mr-2" placeholder="Descrição"
-                    value="{{ request('description') }}">
+                    value="{{ request('descricao') }}">
             </div>
             <button type="submit" class="btn btn-primary btn-sm mr-2">Filtrar</button>
             <a href="{{ route('noticias.index') }}" class="btn btn-secondary btn-sm">Limpar Filtros</a>
@@ -36,7 +36,7 @@
         @endif
 
         {{-- Searchbar --}}
-        <form action="{{ route('search') }}" method="post" class="container mt-2">
+        <form action="{{ route('noticias.search') }}" method="get" class="container mt-2">
             <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Pesquisa" aria-label="searchbar"
                     aria-describedby="button-search">

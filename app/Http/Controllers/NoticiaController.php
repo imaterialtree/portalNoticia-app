@@ -9,7 +9,7 @@ class NoticiaController extends Controller
 {
     public function index(Request $request)
     {
-        $filters = $request->only(['title', 'description']);
+        $filters = $request->only(['titulo', 'descricao']);
         $noticias = Noticia::filter($filters)->paginate(10)->withQueryString();
         return view('dashboard', compact('noticias'));
     }
@@ -18,7 +18,7 @@ class NoticiaController extends Controller
     {
         $query = $request->input('query');
         $noticias = Noticia::search($query)->get();
-        return view('search.results', compact('noticias'));
+        return view('noticias.search-results', compact('noticias'));
     }
 
     public function home()
