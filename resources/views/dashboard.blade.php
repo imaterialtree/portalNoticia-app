@@ -6,31 +6,49 @@
         </h2>
     </x-slot>
 
+
+    <div class="container mt-5">
+        <form method="GET" action="{{ route('noticias.index') }}" class="form-inline">
+            <div class="form-group mb-2">
+                <label for="title" class="sr-only">Título</label>
+                <input type="text" name="title" id="title"
+                    class="form-control form-control-sm form-control-custom mr-2" placeholder="Título"
+                    value="{{ request('title') }}">
+            </div>
+            <div class="form-group mb-2">
+                <label for="description" class="sr-only">Descrição</label>
+                <input type="text" name="description" id="description"
+                    class="form-control form-control-sm form-control-custom mr-2" placeholder="Descrição"
+                    value="{{ request('description') }}">
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm mr-2">Filtrar</button>
+            <a href="{{ route('noticias.index') }}" class="btn btn-secondary btn-sm">Limpar Filtros</a>
+        </form>
+    </div>
+
     <div class="container">
-        <h1 class="">Notícias</h1>
+        <h1>Notícias</h1>
         <a href="{{ route('noticias.create') }}" class="btn btn-primary ms-auto">Criar notícia</a>
         @if ($message = Session::get('success'))
-            <div class="alert alert-sucess mt-2">
-                {{ $message }}
+            <div class="alert alert-success mt-2">
+                <p>{{ $message }}</p>
             </div>
         @endif
 
-         {{-- Searchbar --}}
+        {{-- Searchbar --}}
         <form action="{{ route('search') }}" method="post" class="container mt-2">
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Pesquisa"
-                    aria-label="searchbar" aria-describedby="button-search">
+                <input type="text" class="form-control" placeholder="Pesquisa" aria-label="searchbar"
+                    aria-describedby="button-search">
                 <button class="btn btn-primary" type="button" id="button-search">
                     <i class="bi bi-search"></i>
                 </button>
             </div>
         </form>
 
-        
-
-        <div class="container">
-            <table class="table mt-2">
-                <thead class="table-secondary">
+        @if ($noticias->count())
+            <table class="table table-bordered mt-2">
+                <thead>
                     <tr>
                         <th>ID</th>
                         <th>Título</th>
@@ -66,11 +84,12 @@
                         </td>
                     </tr>
                 @endforeach
-                <tfooter>
-                    <tr>links</tr>
-                    {{ $noticias->links() }}
-                </tfooter>
             </table>
-        </div>
-    </div>
+
+            <div>
+                {{ $noticias->links() }}
+            </div>
+        @else
+            <p>Nenhuma noticia cadastrada</p>
+        @endif
 </x-app-layout>
