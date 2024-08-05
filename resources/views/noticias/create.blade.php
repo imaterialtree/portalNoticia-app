@@ -16,18 +16,18 @@
         </div>
         @endif
     </div>
-    <form action="{{ route('noticias.store')}}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('noticias.store')}}" method="POST" enctype="multipart/form-data" class="container">
         @csrf
-        <div class="form-control">
-            <label for="titulo">Titulo</label>
+        <div class="mb-3">
+            <label class="form-label" for="titulo">Titulo</label>
             <input type="text" class="form-control" name="titulo" id="titulo">
         </div>
-        <div class="form-control">
-            <label for="descricao">Descrição</label>
+        <div class="mb-3">
+            <label class="form-label" for="descricao">Descrição</label>
             <textarea class="form-control" name="descricao" id="descricao"></textarea>
         </div>
-        <div class="form-control">
-            <label for="arquivo">Arquivo</label>
+        <div class="mb-3">
+            <label class="form-label" for="arquivo">Arquivo</label>
             <input type="file" class="form-control" name="arquivo" id="arquivo">
         </div>
         <button type="submit" class="btn btn-primary">Salvar</button>
