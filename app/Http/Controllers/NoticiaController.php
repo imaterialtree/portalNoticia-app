@@ -9,9 +9,8 @@ class NoticiaController extends Controller
 {
     public function index(Request $request)
     {
-        // $noticias = Noticia::all();
         $filters = $request->only(['title', 'description']);
-        $noticias = Noticia::filter( $filters )->paginate(10)->withQueryString();
+        $noticias = Noticia::filter($filters)->paginate(10)->withQueryString();
         return view('dashboard', compact('noticias'));
     }
 
@@ -31,26 +30,25 @@ class NoticiaController extends Controller
     public function create()
     {
         return view('noticias.create');
-        }
+    }
 
-   
+
     public function store(Request $request)
     {
         $request->validate([
-            'titulo'=> 'required|string|max:255',
-            'descricao'=> 'required|string',
-            'arquivo'=> 'required|file|image|mimes:jpeg,png,gif|max:2048',
+            'titulo' => 'required|string|max:255',
+            'descricao' => 'required|string',
+            'arquivo' => 'required|file|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $noticia= Noticia::create([
+        $noticia = Noticia::create([
             'titulo' => $request->titulo,
             'descricao' => $request->descricao,
-
         ]);
 
         $noticia->storeArquivo($request->file('arquivo'));
 
-        return redirect()->route('dashboard')->with('success', 'Notícia criada com successo');
+        return redirect()->route('dashboard')->with('success', 'Notícia criada com sucesso!');
     }
 
     public function show(Noticia $noticia)
@@ -66,15 +64,15 @@ class NoticiaController extends Controller
     public function update(Request $request, Noticia $noticia)
     {
         $request->validate([
-            'titulo'=> 'required|string|max:255',
-            'descricao'=> 'required|string',
-            'arquivo'=> 'required|file|image|mimes:jpeg,png,gif|max:2048',
+            'titulo' => 'required|string|max:255',
+            'descricao' => 'required|string|max:255',
+            'arquivo' => 'required|file|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $noticia->titulo = $request->titulo;
         $noticia->descricao = $request->descricao;
 
-        if($request->hasFile('arquivo')){
+        if ($request->hasFile('arquivo')) {
             $noticia->storeArquivo($request->file('arquivo'));
         }
 
@@ -83,11 +81,11 @@ class NoticiaController extends Controller
         return redirect()->route('dashboard')->with('success', 'Notícia atualizada com successo');
     }
 
-    
+
     public function destroy(Noticia $noticia)
     {
         $noticia->delete();
 
-        return redirect()->route('dashboard')->with('success', 'Notícia deletada com successo');
+        return redirect()->route('dashboard')->with('success', 'Notícia deletada com sucesso!');
     }
 }

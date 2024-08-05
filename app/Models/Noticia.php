@@ -30,15 +30,13 @@ class Noticia extends Model
 
     public static function scopeFilter(Builder $query, array $filters)
     {
-        $query = null;
         if ($titulo = $filters['titulo'] ?? false) {
-            $query = self::where('titulo', $titulo);
+            $query->where('titulo', 'like', '%' . $titulo . '%');
         }
 
         if ($descricao = $filters['descricao'] ?? false) {
-            $query = self::where('descricao', $descricao);
+            $query->where('descricao', 'like', '%' . $descricao . '%');
         }
-        return $query;
     }
 
     // laravel/scout
