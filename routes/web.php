@@ -19,8 +19,9 @@ Route::get('/', [NoticiaController::class, 'home'])->name('home');
 Route::resource('noticias', NoticiaController::class);
 
 Route::get('/dashboard', [NoticiaController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
-//Route::get('/noticias/{noticia}', [NoticiaController::class, 'show'])->name('noticias.show');
+Route::get('/noticias/{noticia}', [NoticiaController::class, 'show'])->name('noticias.show');
 Route::put('/noticias/{noticia}', [NoticiaController::class, 'update'])->name('noticias.update');
+Route::get('/search', [NoticiaController::class, 'search'])->name('search');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

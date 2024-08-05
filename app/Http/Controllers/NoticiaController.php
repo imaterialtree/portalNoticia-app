@@ -11,9 +11,17 @@ class NoticiaController extends Controller
     {
         // $noticias = Noticia::all();
         $filters = $request->only(['title', 'description']);
-        $noticias = Noticia::filter( $filters )->paginante(10)->withQueryString();
+        $noticias = Noticia::filter( $filters )->paginate(10)->withQueryString();
         return view('dashboard', compact('noticias'));
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $noticias = Noticia::search($query)->get();
+        return view('search.results', compact('noticias'));
+    }
+
     public function home()
     {
         $noticias = Noticia::all();
