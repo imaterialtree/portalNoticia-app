@@ -11,14 +11,14 @@ class NoticiaController extends Controller
     {
         $filters = $request->only(['titulo', 'descricao']);
         $noticias = Noticia::filter($filters)->paginate(10)->withQueryString();
-        return view('noticias.index', compact('noticias'));
+        return view('noticia.index', compact('noticias'));
     }
 
     public function search(Request $request)
     {
         $query = $request->input('query');
         $noticias = Noticia::search($query)->get();
-        return view('noticias.search-results', compact('noticias'));
+        return view('noticia.search-results', compact('noticias'));
     }
 
     public function home()
@@ -29,7 +29,7 @@ class NoticiaController extends Controller
 
     public function create()
     {
-        return view('noticias.create');
+        return view('noticia.create');
     }
 
 
@@ -53,12 +53,12 @@ class NoticiaController extends Controller
 
     public function show(Noticia $noticia)
     {
-        return view('noticias.show', compact('noticia'));
+        return view('noticia.show', compact('noticia'));
     }
 
     public function edit(Noticia $noticia)
     {
-        return view('noticias.edit', compact('noticia'));
+        return view('noticia.edit', compact('noticia'));
     }
 
     public function update(Request $request, Noticia $noticia)
