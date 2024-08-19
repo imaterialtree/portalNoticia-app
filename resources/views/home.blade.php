@@ -13,21 +13,22 @@
                     @if ($noticias->isEmpty())
                         <p>Não há noticias disponiveís no momento.</p>
                     @else
-                        <div class ="row">
-                            @foreach ($noticias as $noticia)
-                                <div class="col-md-4 mb-4">
-                                    <div class="card">
-                                        @if ($noticia->url)
-                                            <img src="{{ asset($noticia->url) }}" alt="{{ $noticia->titulo }}">
-                                        @endif
-                                        <div class="card-body">
-                                            <h5 class="card-title">{{ $noticia->titulo }}</h5>
-                                            <p class="card-text">{{ $noticia->descricao }}</p>
-                                        </div>
-                                    </div>
+                    <div class ="row">
+                        @foreach ($noticias as $noticia)
+                        <div class="col-md-4 mb-4">
+                            <div class="card">
+                                @if ($noticia->url)
+                                <img src="{{ asset($noticia->url) }}" alt="{{ $noticia->titulo }}">
+                                @endif
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $noticia->titulo }}</h5>
+                                    <p class="card-text">{{ $noticia->descricaoAbreviada() }}</p>
                                 </div>
-                            @endforeach
+                                <a class="stretched-link" href="#"></a>
+                            </div>
                         </div>
+                        @endforeach
+                    </div>
                     @endif
                 </div>
             </div>

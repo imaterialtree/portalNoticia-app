@@ -9,6 +9,7 @@
     {{-- Filtros --}}
     <div class="container mt-5">
         <form method="GET" action="{{ route('noticias.index') }}" class="form-inline">
+            <h3>Filtro com query</h3>
             <div class="form-group mb-2">
                 <label for="titulo" class="sr-only">Título</label>
                 <input type="text" name="titulo" id="titulo"
@@ -25,6 +26,18 @@
             <a href="{{ route('noticias.index') }}" class="btn btn-secondary btn-sm">Limpar Filtros</a>
         </form>
     </div>
+    
+    {{-- Searchbar --}}
+    <form action="{{ route('noticias.search') }}" method="get" class="container mt-5">
+        <h3>Filtro com scout</h3>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Pesquisa" aria-label="searchbar"
+                aria-describedby="button-search">
+            <button class="btn btn-primary" type="button" id="button-search">
+                <i class="bi bi-search"></i>
+            </button>
+        </div>
+    </form>
 
     <div class="container">
         <h1>Notícias</h1>
@@ -35,16 +48,6 @@
             </div>
         @endif
 
-        {{-- Searchbar --}}
-        <form action="{{ route('noticias.search') }}" method="get" class="container mt-2">
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Pesquisa" aria-label="searchbar"
-                    aria-describedby="button-search">
-                <button class="btn btn-primary" type="button" id="button-search">
-                    <i class="bi bi-search"></i>
-                </button>
-            </div>
-        </form>
 
         @if ($noticias->count())
             <table class="table table-bordered mt-2">
@@ -61,7 +64,7 @@
                     <tr>
                         <td>{{ $noticia->id }}</td>
                         <td>{{ $noticia->titulo }}</td>
-                        <td>{{ substr($noticia->descricao, 0, 250) . '...' }}</td>
+                        <td>{{ $noticia->descricaoAbreviada() }}</td>
                         <td><a href="{{ $noticia->url }}" target="_blank">{{ $noticia->url }}</a></td>
                         <td>
                             <a class="btn btn-info" href="{{ route('noticias.show', $noticia->id) }}">

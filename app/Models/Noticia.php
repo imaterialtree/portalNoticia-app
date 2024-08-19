@@ -10,9 +10,9 @@ use Laravel\Scout\Searchable;
 
 class Noticia extends Model
 {
+    use HasFactory;
     use Searchable;
 
-    use HasFactory;
     protected $fillable = [
         'titulo',
         'descricao',
@@ -31,11 +31,11 @@ class Noticia extends Model
     public static function scopeFilter(Builder $query, array $filters)
     {
         if ($titulo = $filters['titulo'] ?? false) {
-            $query->where('titulo', 'like', '%' . $titulo . '%');
+            $query->where('titulo', 'like', '%'.$titulo.'%');
         }
 
         if ($descricao = $filters['descricao'] ?? false) {
-            $query->where('descricao', 'like', '%' . $descricao . '%');
+            $query->where('descricao', 'like', '%'.$descricao.'%');
         }
     }
 
@@ -47,5 +47,15 @@ class Noticia extends Model
             'titulo' => $this->titulo,
             'descricao' => $this->descricao,
         ];
+    }
+
+    public function descricaoAbreviada(int $max = 250): string
+    {
+        $descricaoAbreviada = substr($this->descricao, 0, $max);
+        if (strlen($this->descricao) > $max) {
+            $descricaoAbreviada .= '...';
+        }
+
+        return $descricaoAbreviada;
     }
 }

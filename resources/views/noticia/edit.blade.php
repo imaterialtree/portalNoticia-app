@@ -27,16 +27,20 @@
             </div>
             <div class="form-group">
                 <label for="descricao">Descrição</label>
-                <textarea class="form-control" name="decricao" id="descricao">{{ $noticia->descricao }}</textarea>
+                <textarea class="form-control" name="decricao" id="descricao" rows="10">{{ $noticia->descricao }}</textarea>
             </div>
             <div class="form-group">
                 <label for="arquivo">Arquivo</label>
-                <input type="file" class="form-control" name="arquivo" id="arquivo">
-                @if ($noticia->arquivo)
-                    <a href="{{ asset($noticia->url) }}" target="_blank">Ver arquivo</a>
-                @endif
+                <input type="file" class="form-control" name="arquivo" id="arquivo" placeholder="Imagem">
             </div>
-            <button type="submit" class="btn btn-primary">Salvar</button>
+            <div>
+                <h3>Imagem carregada atualmente</h3>
+                <p>Para manter essa imagem, deixe o campo em branco</p>
+                <img src="{{ asset($noticia->url) }}" alt="" class="img-fluid mx-auto">
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
         </form>
     </div>
 </x-app-layout>

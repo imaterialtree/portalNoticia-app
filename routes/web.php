@@ -16,16 +16,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [NoticiaController::class, 'home'])->name('home');
-Route::resource('noticias', NoticiaController::class);
 
-Route::prefix('/noticias')
-    ->name('noticias.')
-    ->middleware(['auth', 'verified'])
-    ->group(function () {
-        Route::get('/', [NoticiaController::class, 'index'])->name('index');
-        Route::get('/{noticia}', [NoticiaController::class, 'show'])->name('show');
-        Route::put('/{noticia}', [NoticiaController::class, 'update'])->name('update');
-        Route::get('/search', [NoticiaController::class, 'search'])->name('search');
+Route::resource('noticias', NoticiaController::class)->middleware(['auth', 'verified']);
+Route::get('/noticias/{noticia}', [NoticiaController::class, 'show'])->name('noticias.show');
+
+Route::prefix('/noticias')->middleware(['auth', 'verified'])
+->group(function () {
+        Route::get('/search', [NoticiaController::class, 'search'])->name('noticias.search');
     });
 
 Route::get('/dashboard', function () {
